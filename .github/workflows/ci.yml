@@ -19,4 +19,6 @@ jobs:
       - name: Run tests on JVM + iOS simulator
         run: ./gradlew allTests
       - name: Mutation check (hand-written suite must kill every mutant)
-        run: ./llm-eval/run-eval.sh | tee eval.txt && grep -q "Mutants killed: 3/3" eval.txt
+        run: |
+          ./llm-eval/run-eval.sh | tee eval.txt
+          grep -q "Mutants killed: 3/3" eval.txt
