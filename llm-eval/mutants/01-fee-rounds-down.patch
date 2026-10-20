@@ -1,0 +1,13 @@
+diff --git a/shared/src/commonMain/kotlin/money/Arithmetic.kt b/shared/src/commonMain/kotlin/money/Arithmetic.kt
+index 8266cfd..69455d5 100644
+--- a/shared/src/commonMain/kotlin/money/Arithmetic.kt
++++ b/shared/src/commonMain/kotlin/money/Arithmetic.kt
+@@ -54,7 +54,7 @@ internal fun divide(numerator: Long, denominator: Long, mode: RoundingMode): Lon
+ 
+     return when (mode) {
+         RoundingMode.DOWN -> quotient
+-        RoundingMode.UP -> awayFromZero
++        RoundingMode.UP -> quotient
+         RoundingMode.HALF_UP -> if (absRemainder >= distanceToNext) awayFromZero else quotient
+         RoundingMode.HALF_EVEN -> when {
+             absRemainder > distanceToNext -> awayFromZero

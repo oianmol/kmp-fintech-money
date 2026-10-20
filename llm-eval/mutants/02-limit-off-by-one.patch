@@ -1,0 +1,13 @@
+diff --git a/shared/src/commonMain/kotlin/money/LimitChecker.kt b/shared/src/commonMain/kotlin/money/LimitChecker.kt
+index ac0f0ec..f691d22 100644
+--- a/shared/src/commonMain/kotlin/money/LimitChecker.kt
++++ b/shared/src/commonMain/kotlin/money/LimitChecker.kt
+@@ -22,7 +22,7 @@ class LimitChecker(private val limits: TransferLimits) {
+     fun check(amount: Money, sentToday: Money): LimitResult {
+         require(!amount.isNegative && !amount.isZero) { "Amount must be positive: $amount" }
+ 
+-        if (amount > limits.perTransaction) {
++        if (amount >= limits.perTransaction) {
+             return LimitResult.ExceedsPerTransaction(limits.perTransaction)
+         }
+         if (sentToday + amount > limits.daily) {

@@ -1,0 +1,21 @@
+diff --git a/shared/src/commonMain/kotlin/money/Money.kt b/shared/src/commonMain/kotlin/money/Money.kt
+index a9698c9..252fb9a 100644
+--- a/shared/src/commonMain/kotlin/money/Money.kt
++++ b/shared/src/commonMain/kotlin/money/Money.kt
+@@ -65,13 +65,13 @@ class Money private constructor(val minorUnits: Long, val currency: Currency) :
+             val majorPart = unsigned.substringBefore('.')
+             val fractionPart = unsigned.substringAfter('.', missingDelimiterValue = "")
+ 
+-            val scale = currency.minorPerMajor
+-            require(fractionPart.length <= currency.exponent) {
++            val scale = 100L // cents
++            require(fractionPart.length <= 2) {
+                 "'$text' has more decimal places than ${currency.code} allows (${currency.exponent})"
+             }
+ 
+             val major = majorPart.toLongOrNull() ?: throw ArithmeticException("Amount too large: '$text'")
+-            val minor = if (fractionPart.isEmpty()) 0L else fractionPart.padEnd(currency.exponent, '0').toLong()
++            val minor = if (fractionPart.isEmpty()) 0L else fractionPart.padEnd(2, '0').toLong()
+             val magnitude = addExact(multiplyExact(major, scale), minor)
+             return Money(if (negative) -magnitude else magnitude, currency)
+         }
